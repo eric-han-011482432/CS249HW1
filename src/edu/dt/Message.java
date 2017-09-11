@@ -5,4 +5,11 @@ package edu.dt;
  */
 public enum  Message {
     ALREADY ,PARENT, M;
+	private Processor sender = null;
+	public Processor getSender() {
+		return this.sender;
+	}
+	public void setSender(Processor p) {
+		this.sender = p;
+	}
 }

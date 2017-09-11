@@ -11,7 +11,6 @@ public class Buffer extends Observable {
     private Message message;
 
     public Buffer(){
-//    	 Buffer messageBuffer = new Buffer();
         //Create an empty Buffer
     }
     public Buffer(Message message) {
@@ -25,7 +24,7 @@ public class Buffer extends Observable {
     public void setMessage(Message message ) {
         this.message = message;
         setChanged();
-        notifyObservers();
+        notifyObservers(this);
     }
 }
 

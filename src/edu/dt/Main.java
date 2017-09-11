@@ -10,20 +10,28 @@ import java.util.Map;
  */
 @SuppressWarnings("unused")
 public class Main {
-    Map<Processor, List<Processor>> graph ;
-
+	
+    public static Map<Processor, List<Processor>> graph ;
+    public static Processor root;
+    public static Processor p1;
+    public static Processor p2;
+    public static Processor p3;
+    public static Processor p4;
+    public static Processor p5;
+    public static Processor p6;
+    
     public  Main(){
-        init();
+    		init();
     }
 
     public void init(){
-    	graph = new HashMap<Processor, List<Processor>>();
-        Processor p1 = new Processor();
-        Processor p2 = new Processor();
-        Processor p3 = new Processor();
-        Processor p4 = new Processor();
-        Processor p5 = new Processor();
-        Processor p6 = new Processor();
+    		graph = new HashMap<Processor, List<Processor>>();
+        p1 = new Processor();
+        p2 = new Processor();
+        p3 = new Processor();
+        p4 = new Processor();
+        p5 = new Processor();
+        p6 = new Processor();
         ArrayList<Processor> p1neighbors = new ArrayList<Processor>();
         p1neighbors.add(p2);
         p1neighbors.add(p3);
@@ -62,19 +70,15 @@ public class Main {
         p5.unexplored.add(p4);
         p6.unexplored.add(p4);
         p6.unexplored.add(p5);
-        System.out.println(p2.unexplored);
-        Processor root = p1;
-        p1.sendMessgeToMyBuffer(Message.M);
     }
 
     public static void main ( String args[]){
         Main m = new Main();
         System.out.println("working");
-
         //TODO: Choose a processor as a Root
-//        Processor root = p1;
-//        p1.sendMessgeToMyBuffer(Message.M);
+        Main.root = p1;
         //TODO: Send an initial message Message.M to this processor.
+        root.sendMessgeToMyBuffer(Message.M);
     }
 
 }
