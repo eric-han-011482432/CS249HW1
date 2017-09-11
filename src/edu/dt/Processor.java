@@ -1,6 +1,7 @@
 package edu.dt;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -11,7 +12,7 @@ import java.util.Observer;
 public class Processor implements Observer {
     //Each processsor has a message Buffer to store messages
     Buffer messageBuffer ;
-    Processor parent = null;
+    Processor parent;
     private static int count = 0;
     Integer id ;
     List<Processor> children ;
@@ -29,7 +30,6 @@ public class Processor implements Observer {
     }
 
     //This method will only be used by the Processor
-    @SuppressWarnings("unused")
 	private void removeFromUnexplored(Processor p){
 	    	unexplored.remove(p);
         //TODO: implement removing one processor from the list of Children or Unexplored??
@@ -64,14 +64,14 @@ public class Processor implements Observer {
 		    	case M: {
 		    		if (parent == null) {
 		    			parent = msg.getSender();
-		    			removeFromUnexplored(msg.getSender());
+		    			removeFromUnexplored(parent);
 		    			explore();
 		    		} else {
 		    			Processor sender = msg.getSender();
 		    			Message already = Message.ALREADY;
 		    			already.setSender(this);
 		    			sender.sendMessgeToMyBuffer(already);
-		    			removeFromUnexplored(msg.getSender());
+		    			removeFromUnexplored(sender);
 		    		}
 		    	}
 		    	case ALREADY: {
@@ -96,13 +96,23 @@ public class Processor implements Observer {
     			if(parent != this) {
     				Message parentMessage = Message.PARENT;
     				parentMessage.setSender(this);
-    				parent.sendMessgeToMyBuffer(parentMessage);
+    				if(parent != null) parent.sendMessgeToMyBuffer(parentMessage);
     				terminate();
     			}
     		}
     }
+    public void postorderPrint(Processor p) {
+		Iterator<Processor> iter = p.children.iterator();
+		while (iter.hasNext()) {
+			Processor proc = iter.next();
+	  		postorderPrint(proc);
+	  		System.out.print(" " + proc.id);
+		}
+    }
     
     public void terminate(){
+    		System.out.println("DFS Tree:");
+    		postorderPrint(Main.root);
     		return;
     }
 }
