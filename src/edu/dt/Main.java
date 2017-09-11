@@ -78,7 +78,7 @@ public class Main {
         //TODO: Choose a processor as a Root
         Main.root = p1;
         //TODO: Send an initial message Message.M to this processor.
-        root.sendMessgeToMyBuffer(Message.M);
+        Main.root.sendMessgeToMyBuffer(Message.M);
     }
 
 }

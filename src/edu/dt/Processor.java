@@ -52,7 +52,6 @@ public class Processor implements Observer {
     public void update(Observable observable, Object arg) {
     		Buffer b = (Buffer) observable;
     		Message msg = b.getMessage();
-    		System.out.println(msg);
     		if(msg==null) {
     			if(Main.root != null) {
     				if(this == Main.root && parent == null) {
@@ -72,7 +71,7 @@ public class Processor implements Observer {
 		    			Message already = Message.ALREADY;
 		    			already.setSender(this);
 		    			sender.sendMessgeToMyBuffer(already);
-		    			removeFromUnexplored(msg.sender);
+		    			removeFromUnexplored(msg.getSender());
 		    		}
 		    	}
 		    	case ALREADY: {
