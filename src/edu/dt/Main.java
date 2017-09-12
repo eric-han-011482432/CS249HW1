@@ -85,17 +85,16 @@ public class Main {
         Main.root.sendMessgeToMyBuffer(Message.M);
         for(Processor p : graph.keySet() ) {
         		CopyOnWriteArrayList<Processor> children = (CopyOnWriteArrayList<Processor>) p.children;
-        		System.out.println("Processor "+p.id +"'s Children: ");
+        		System.out.println("P"+p.id +"'s Children: ");
         		for (Processor child: children) {
-        			System.out.print("P#"+ child.id + " ");
+        			System.out.print("P"+ child.id + " ");
         		}
         		System.out.println();
         }
         for(Processor p : graph.keySet()) {
         		if(p.parent!=null) {
-        			System.out.println("Processor "+ p.id +"'s parent: " + "Processor #" + p.parent.id);
+        			System.out.println("P"+ p.id +"'s parent: " + "P" + p.parent.id);
         		}
         }
     }
-
 }

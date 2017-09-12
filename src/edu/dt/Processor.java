@@ -67,7 +67,7 @@ public class Processor implements Observer {
 		    	case M: {
 		    		if (parent == null) {
 		    			parent = msg.getSender();
-		    			removeFromUnexplored(parent);
+		    			removeFromUnexplored(msg.getSender());
 		    			explore();
 		    		} else {
 		    			Processor sender = msg.getSender();
@@ -103,7 +103,6 @@ public class Processor implements Observer {
     			}
     		}
     }
-    
     public void terminate(){
     		return;
     }
