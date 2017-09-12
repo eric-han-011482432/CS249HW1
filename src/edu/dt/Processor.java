@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by tphadke on 8/29/17.
@@ -22,9 +23,9 @@ public class Processor implements Observer {
     public Processor() {
         messageBuffer = new Buffer();
         id = count ++;
-        children = new ArrayList<Processor>();
+        children = new CopyOnWriteArrayList<Processor>();
         //Initially it will be all the neighbors of a Processor. When a graph is created this list is populated
-        unexplored = new ArrayList<Processor>();
+        unexplored = new CopyOnWriteArrayList<Processor>();
         //Each processor is observing itself;
         messageBuffer.addObserver(this);
     }
@@ -36,7 +37,9 @@ public class Processor implements Observer {
     }
     
     private void addToChildren(Processor p) {
-    		children.add(p);
+    		if(!children.contains(p)) {
+    			children.add(p);
+    		}
     }
 
     //This method will add a message to this processors buffer.
@@ -86,12 +89,11 @@ public class Processor implements Observer {
 
     private void explore(){
     		if(unexplored.size() != 0) {
-    			for(Processor p : unexplored){
-    				removeFromUnexplored(p);
-    				Message m = Message.M;
-    				m.setSender(this);
-    				p.sendMessgeToMyBuffer(m);
-    			}
+			Processor p = unexplored.get(0);
+			removeFromUnexplored(p);
+			Message m = Message.M;
+			m.setSender(this);
+			p.sendMessgeToMyBuffer(m);
     		} else {
     			if(parent != this) {
     				Message parentMessage = Message.PARENT;
@@ -101,18 +103,8 @@ public class Processor implements Observer {
     			}
     		}
     }
-    public void postorderPrint(Processor p) {
-		Iterator<Processor> iter = p.children.iterator();
-		while (iter.hasNext()) {
-			Processor proc = iter.next();
-	  		postorderPrint(proc);
-	  		System.out.print(" " + proc.id);
-		}
-    }
     
     public void terminate(){
-    		System.out.println("DFS Tree:");
-    		postorderPrint(Main.root);
     		return;
     }
 }

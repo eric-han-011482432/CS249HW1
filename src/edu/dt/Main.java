@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+import javax.swing.text.html.HTMLDocument.Iterator;
 
 /**
  * Created by tphadke on 8/29/17.
@@ -79,6 +83,19 @@ public class Main {
         Main.root = p1;
         //TODO: Send an initial message Message.M to this processor.
         Main.root.sendMessgeToMyBuffer(Message.M);
+        for(Processor p : graph.keySet() ) {
+        		CopyOnWriteArrayList<Processor> children = (CopyOnWriteArrayList<Processor>) p.children;
+        		System.out.println("Processor "+p.id +"'s Children: ");
+        		for (Processor child: children) {
+        			System.out.print("P#"+ child.id + " ");
+        		}
+        		System.out.println();
+        }
+        for(Processor p : graph.keySet()) {
+        		if(p.parent!=null) {
+        			System.out.println("Processor "+ p.id +"'s parent: " + "Processor #" + p.parent.id);
+        		}
+        }
     }
 
 }
