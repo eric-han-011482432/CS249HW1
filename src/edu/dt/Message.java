@@ -6,9 +6,11 @@ package edu.dt;
 public enum  Message {
     ALREADY ,PARENT, M;
 	private Processor sender = null;
+	// returns sender in Message
 	public Processor getSender() {
 		return this.sender;
 	}
+	// set sender of a message
 	public void setSender(Processor p) {
 		this.sender = p;
 	}

@@ -30,6 +30,7 @@ public class Main {
 
     public void init(){
     		graph = new HashMap<Processor, List<Processor>>();
+    		// creating processors
         p1 = new Processor();
         p2 = new Processor();
         p3 = new Processor();
@@ -83,6 +84,7 @@ public class Main {
         Main.root = p1;
         //TODO: Send an initial message Message.M to this processor.
         Main.root.sendMessgeToMyBuffer(Message.M);
+        //Here we are iterating through the children in each processor and printing it out
         for(Processor p : graph.keySet() ) {
         		CopyOnWriteArrayList<Processor> children = (CopyOnWriteArrayList<Processor>) p.children;
         		System.out.println("P"+p.id +"'s Children: ");
@@ -91,6 +93,7 @@ public class Main {
         		}
         		System.out.println();
         }
+        //Here we are iterating through each processor and printing their parent
         for(Processor p : graph.keySet()) {
         		if(p.parent!=null) {
         			System.out.println("P"+ p.id +"'s parent: " + "P" + p.parent.id);
